@@ -115,31 +115,37 @@ ref.once('value').then(function(snapshot) {
 
 
 function moveMoney() {
-  var elem = document.getElementById("moneyBar");   
-  if (moneyWidth >= 100) {
-  
-  } else {
-    for (i=0; i<10; i++){
-    	moneyWidth+=.5;
-    	elem.style.width = moneyWidth + '%';
-    	ref.child("money").set(moneyWidth);
-    }
+  var elem = document.getElementById("moneyBar");
+  width = moneyWidth;
+  moneyWidth += 5; 
+  ref.child("money").set(moneyWidth);
+  var id = setInterval(frame, 15);
 
-  }
+  function frame() {
+        if (width >= moneyWidth) {
+            clearInterval(id);
+        } else {
+            width+=0.1; 
+            elem.style.width = width + '%'; 
+        }
+    }
 }
 
 function moveTime() {
-  var elem = document.getElementById("timeBar");   
-  if (timeWidth >= 100) {
-  
-  } else {
-    for (i=0; i<10; i++){
-    	timeWidth+=.5;
-    	elem.style.width = timeWidth + '%';
-    	ref.child("time").set(timeWidth);
-    }
+  var elem = document.getElementById("timeBar");
+  width = timeWidth;
+  timeWidth += 5;
+  ref.child("time").set(timeWidth);
+  var id = setInterval(frame, 15);
 
-  }
+  function frame() {
+        if (width >= timeWidth) {
+            clearInterval(id);
+        } else {
+            width+=0.1; 
+            elem.style.width = width + '%'; 
+        }
+    }
 }
 
 
