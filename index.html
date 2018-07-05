@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+
+          <script>console.log("test");</script>
+</head>
+<style>
+
+button{
+  background:#2196F3;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+button:hover{
+  background:#fff;
+  color:#2196F3;
+}
+button:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #2196F3;
+  transition:400ms ease all;
+}
+button:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+button:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+.money{
+	background:#F44336
+}
+
+.money:hover{
+	color:#F44336
+}
+
+.money:before,.money:after{
+	background:#F44336
+}
+
+#moneyBar {
+  width: 0%;
+  height: 50px;
+  background-color: #F44336;
+}
+
+#progress {
+  box-sizing: border-box;
+  border-radius: 1px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+  width: 100%;
+  background-color: #ddd;
+}
+
+#timeBar {
+  width: 0%;
+  height: 50px;
+  background-color: #2196F3;
+}
+
+</style>
+<body>
+
+<h1>Republican Donations</h1>
+
+
+
+<script>
+// Initialize Firebase
+var config = {
+     apiKey: "AIzaSyBitR6i-NcS69vOa7jQe9N_R5pmLwO-b8E",
+     authDomain: "progress-2b523.firebaseapp.com",
+     databaseURL: "https://progress-2b523.firebaseio.com",
+     projectId: "progress-2b523",
+     storageBucket: "progress-2b523.appspot.com",
+     messagingSenderId: "786153094059"
+};
+firebase.initializeApp(config);
+
+var timeWidth = 0;
+var moneyWidth = 0;
+     
+var ref = firebase.database().ref();
+
+ref.once('value').then(function(snapshot) {
+    console.log(snapshot.val());
+    var timeBar = document.getElementById("timeBar");
+    timeWidth = snapshot.val().time;
+	timeBar.style.width = timeWidth + '%';
+	var moneyBar = document.getElementById("moneyBar");
+	moneyWidth = snapshot.val().money;
+	moneyBar.style.width = moneyWidth + '%';
+  });
+
+
+
+
+function moveMoney() {
+  var elem = document.getElementById("moneyBar");   
+  if (moneyWidth >= 100) {
+  
+  } else {
+    for (i=0; i<10; i++){
+    	moneyWidth+=.5;
+    	elem.style.width = moneyWidth + '%';
+    	ref.child("money").set(moneyWidth);
+    }
+
+  }
+}
+
+function moveTime() {
+  var elem = document.getElementById("timeBar");   
+  if (timeWidth >= 100) {
+  
+  } else {
+    for (i=0; i<10; i++){
+    	timeWidth+=.5;
+    	elem.style.width = timeWidth + '%';
+    	ref.child("time").set(timeWidth);
+    }
+
+  }
+}
+
+
+
+
+</script>
+
+<div id="progress">
+  <div id="moneyBar"></div>
+</div>
+
+<div id="progress" style="margin-top:10px">
+  <div id="timeBar"></div>
+</div>
+
+<br>
+<button class="money" onclick="moveMoney()">Money</button>
+<button class="time" onclick="moveTime()">Time</button> 
+
+</body>
+</html>
