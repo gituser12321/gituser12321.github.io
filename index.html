@@ -140,11 +140,13 @@ ref.once('value').then(function(snapshot) {
 
 
 function moveMoney() {
-  var elem = document.getElementById("moneyBar");
-  width = moneyWidth;
-  moneyWidth += 1; 
-  ref.child("money").set(moneyWidth);
-  var id = setInterval(frame, 15);
+  if (moneyWidth<=100){
+    var elem = document.getElementById("moneyBar");
+    width = moneyWidth;
+    moneyWidth += 1; 
+    ref.child("money").set(moneyWidth);
+    var id = setInterval(frame, 15);
+  }
 
   function frame() {
         if (width >= moneyWidth) {
@@ -159,11 +161,13 @@ function moveMoney() {
 }
 8
 function moveTime() {
-  var elem = document.getElementById("timeBar");
-  width = timeWidth;
-  timeWidth += 1;
-  ref.child("time").set(timeWidth);
-  var id = setInterval(frame, 15);
+  if (timeWidth<=100){
+    var elem = document.getElementById("timeBar");
+    width = timeWidth;
+    timeWidth += 1;
+    ref.child("time").set(timeWidth);
+    var id = setInterval(frame, 15);
+  }
 
   function frame() {
         if (width >= timeWidth) {
