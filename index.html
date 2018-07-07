@@ -129,18 +129,18 @@ ref.once('value').then(function(snapshot) {
     var timeBar = document.getElementById("timeBar");
     timeWidth = snapshot.val().time;
 	timeBar.style.width = timeWidth + '%';
-	timeBar.innerHTML = parseFloat(timeWidth * 1).toFixed(1)  + '%';
+	timeBar.innerHTML = parseInt(timeWidth * 1).toFixed(1)  + '%';
 	var moneyBar = document.getElementById("moneyBar");
 	moneyWidth = snapshot.val().money;
 	moneyBar.style.width = moneyWidth + '%';
-	moneyBar.innerHTML = parseFloat(moneyWidth * 1).toFixed(1)  + '%';
+	moneyBar.innerHTML = parseInt(moneyWidth * 1).toFixed(1)  + '%';
   });
 
 
 
 
 function moveMoney() {
-  if (moneyWidth<=100){
+  if (moneyWidth<100){
     var elem = document.getElementById("moneyBar");
     width = moneyWidth;
     moneyWidth += 1; 
@@ -154,14 +154,14 @@ function moveMoney() {
         } else {
             width+=0.1; 
             elem.style.width = width + '%';
-            moneyBar.innerHTML = parseFloat(width * 1).toFixed(1)  + '%';
+            moneyBar.innerHTML = parseInt(width * 10 / 10).toFixed(1)  + '%';
 
         }
     }
 }
 8
 function moveTime() {
-  if (timeWidth<=100){
+  if (timeWidth<100){
     var elem = document.getElementById("timeBar");
     width = timeWidth;
     timeWidth += 1;
@@ -175,7 +175,7 @@ function moveTime() {
         } else {
             width+=0.1; 
             elem.style.width = width + '%'; 
-            timeBar.innerHTML = parseFloat(width * 1).toFixed(1)  + '%';
+            timeBar.innerHTML = parseInt(width * 1).toFixed(1)  + '%';
 
         }
     }
