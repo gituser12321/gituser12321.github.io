@@ -129,11 +129,11 @@ ref.once('value').then(function(snapshot) {
     var timeBar = document.getElementById("timeBar");
     timeWidth = snapshot.val().time;
 	timeBar.style.width = timeWidth + '%';
-	timeBar.innerHTML = parseInt(timeWidth * 1).toFixed(1)  + '%';
+	timeBar.innerHTML = parseInt(timeWidth * 1) + '%';
 	var moneyBar = document.getElementById("moneyBar");
 	moneyWidth = snapshot.val().money;
 	moneyBar.style.width = moneyWidth + '%';
-	moneyBar.innerHTML = parseInt(moneyWidth * 1).toFixed(1)  + '%';
+	moneyBar.innerHTML = parseInt(moneyWidth * 1)  + '%';
   });
 
 
@@ -154,7 +154,7 @@ function moveMoney() {
         } else {
             width+=0.1; 
             elem.style.width = width + '%';
-            moneyBar.innerHTML = parseInt(width * 10 / 10).toFixed(1)  + '%';
+            moneyBar.innerHTML = parseInt(width * 10 / 10)  + '%';
 
         }
     }
@@ -175,7 +175,7 @@ function moveTime() {
         } else {
             width+=0.1; 
             elem.style.width = width + '%'; 
-            timeBar.innerHTML = parseInt(width * 1).toFixed(1)  + '%';
+            timeBar.innerHTML = parseInt(width * 1) + '%';
 
         }
     }
