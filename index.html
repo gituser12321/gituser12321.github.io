@@ -4,9 +4,9 @@
      <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
      <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
 
-          <script>console.log("test");</script>
 </head>
 <style>
+
 
 button{
   background:#2196F3;
@@ -61,6 +61,20 @@ button:hover:before,button:hover:after{
   width: 0%;
   height: 50px;
   background-color: #F44336;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
+}
+
+#timeBar {
+  width: 0%;
+  height: 50px;
+  background-color: #2196F3;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px;
 }
 
 #progress {
@@ -71,16 +85,21 @@ button:hover:before,button:hover:after{
   background-color: #ddd;
 }
 
-#timeBar {
-  width: 0%;
-  height: 50px;
-  background-color: #2196F3;
+div.note
+{
+     background-color: #f0f7fb;
+     border-left: solid 4px #3498db;
+     line-height: 18px;
+     mc-auto-number-format: '{b}Note: {/b}';
+     overflow: hidden;
+     padding: 12px;
 }
+
 
 </style>
 <body>
 
-<h1>Republican Donations</h1>
+<h1 style="text-align:center">Republican Donations</h1>
 
 
 
@@ -106,9 +125,11 @@ ref.once('value').then(function(snapshot) {
     var timeBar = document.getElementById("timeBar");
     timeWidth = snapshot.val().time;
 	timeBar.style.width = timeWidth + '%';
+	timeBar.innerHTML = parseFloat(timeWidth * 1).toFixed(1)  + '%';
 	var moneyBar = document.getElementById("moneyBar");
 	moneyWidth = snapshot.val().money;
 	moneyBar.style.width = moneyWidth + '%';
+	moneyBar.innerHTML = parseFloat(moneyWidth * 1).toFixed(1)  + '%';
   });
 
 
@@ -117,7 +138,7 @@ ref.once('value').then(function(snapshot) {
 function moveMoney() {
   var elem = document.getElementById("moneyBar");
   width = moneyWidth;
-  moneyWidth += 5; 
+  moneyWidth += 1; 
   ref.child("money").set(moneyWidth);
   var id = setInterval(frame, 15);
 
@@ -126,15 +147,17 @@ function moveMoney() {
             clearInterval(id);
         } else {
             width+=0.1; 
-            elem.style.width = width + '%'; 
+            elem.style.width = width + '%';
+            moneyBar.innerHTML = parseFloat(width * 1).toFixed(1)  + '%';
+
         }
     }
 }
-
+8
 function moveTime() {
   var elem = document.getElementById("timeBar");
   width = timeWidth;
-  timeWidth += 5;
+  timeWidth += 1;
   ref.child("time").set(timeWidth);
   var id = setInterval(frame, 15);
 
@@ -144,6 +167,8 @@ function moveTime() {
         } else {
             width+=0.1; 
             elem.style.width = width + '%'; 
+            timeBar.innerHTML = parseFloat(width * 1).toFixed(1)  + '%';
+
         }
     }
 }
@@ -153,17 +178,24 @@ function moveTime() {
 
 </script>
 
+<h3 style="text-align: center"> Monetary donations: Goal = $1000</h3>
 <div id="progress">
   <div id="moneyBar"></div>
 </div>
 
+<h3 style="text-align: center"> Time donations: Goal = 1000 Hours</h3>
 <div id="progress" style="margin-top:10px">
   <div id="timeBar"></div>
 </div>
 
 <br>
-<button class="money" onclick="moveMoney()">Money</button>
-<button class="time" onclick="moveTime()">Time</button> 
+<button class="money" onclick="moveMoney()">$10</button>
+<button class="time" onclick="moveTime()">1 Hour</button> 
 
+<div class="note" style="margin-top:10px">
+	Instructions:</br>
+	* Click $10 if you donated 10 dollars</br>
+	* Click 1 Hour if you spent 1 hour to campaign for Trump
+</div>
 </body>
 </html>
